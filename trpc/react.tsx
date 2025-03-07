@@ -9,6 +9,7 @@ import SuperJSON from "superjson";
 
 import { type AppRouter } from "server/api/root";
 import { createQueryClient } from "./query-client";
+import { authClient } from "lib/auth-client";
 
 let clientQueryClientSingleton: QueryClient | undefined = undefined;
 const getQueryClient = () => {
@@ -53,6 +54,10 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
           headers: () => {
             const headers = new Headers();
             headers.set("x-trpc-source", "nextjs-react");
+
+            // Better Auth automatically handles cookies via the browser
+            // No need to manually set cookies for same-origin requests
+
             return headers;
           },
         }),
