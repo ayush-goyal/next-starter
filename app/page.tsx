@@ -1,9 +1,16 @@
-import { HydrateClient } from "trpc/server";
+"use client";
 
-export default async function Home() {
+import { api } from "trpc/react";
+
+export default function Home() {
+  const { data, isLoading } = api.default.getHelloWorld.useQuery({
+    name: "World",
+  });
+
   return (
-    <HydrateClient>
+    <div>
       <h1>Hello World</h1>
-    </HydrateClient>
+      <h1>{isLoading ? "Loading..." : data}</h1>
+    </div>
   );
 }
