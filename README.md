@@ -83,34 +83,13 @@ yarn dev
 
 The application will be available at http://localhost:3000
 
-## Customization
-
-### Project Name and Branding
-
-1. Update the project name in `package.json`
-2. Replace the logo in `/public/logo.svg`
-3. Update the title and metadata in `/app/layout.tsx`
-4. Customize colors in `/tailwind.config.js`
-
 ### Database Schema
 
 Modify the Prisma schema in `/prisma/schema.prisma` to match your application's data model.
 
-## Available Scripts
-
-- `yarn dev` - Start the development server
-- `yarn build` - Build the application for production
-- `yarn start` - Start the production server
-- `yarn lint` - Run ESLint
-- `yarn format:write` - Format code with Prettier
-- `yarn db:push` - Push schema changes to the database
-- `yarn db:studio` - Open Prisma Studio to manage database
-- `yarn db:generate` - Generate Prisma client
-- `yarn db:migrate` - Run database migrations
-
 ## Project Structure
 
-- `/app` - Next.js App Router pages and components
+- `/app` - Next.js App Router pages
 - `/components` - Reusable UI components
 - `/lib` - Utility functions and shared code
 - `/prisma` - Database schema and migrations
@@ -118,33 +97,3 @@ Modify the Prisma schema in `/prisma/schema.prisma` to match your application's 
 - `/server` - Server-side code and API route handlers
 - `/styles` - Global styles
 - `/trpc` - tRPC API setup and configuration
-
-## Deployment
-
-This template can be deployed to various platforms:
-
-### Vercel (Recommended)
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fyourusername%2Fnextjs-starter-template)
-
-### Railway
-
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/nextjs-starter)
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-[MIT](LICENSE)
-
-## Acknowledgements
-
-- [Next.js](https://nextjs.org/)
-- [tRPC](https://trpc.io/)
-- [Prisma](https://www.prisma.io/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [shadcn/ui](https://ui.shadcn.com/)
-- [Zustand](https://github.com/pmndrs/zustand)
-- [Luxon](https://moment.github.io/luxon/)
