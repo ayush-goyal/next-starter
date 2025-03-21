@@ -23,6 +23,7 @@ This template provides a solid foundation for building modern web applications. 
 - **PostgreSQL** - Relational database
 - **Zod** - TypeScript-first schema validation
 - **Better Auth** - Authentication with built-in pages and Google OAuth
+- **Vercel AI SDK** - Make LLM AI requests easily
 
 ### Development Tools
 
