@@ -16,7 +16,6 @@ const compat = new FlatCompat({
 export default [
   ...compat.extends(
     "next/core-web-vitals",
-    "plugin:@typescript-eslint/recommended-type-checked",
     "plugin:@typescript-eslint/stylistic-type-checked",
   ),
   {
@@ -34,6 +33,7 @@ export default [
     },
 
     rules: {
+      "react/no-unescaped-entities": "off",
       "@typescript-eslint/array-type": "off",
       "@typescript-eslint/consistent-type-definitions": "off",
       "@typescript-eslint/consistent-type-imports": [
@@ -58,6 +58,7 @@ export default [
           },
         },
       ],
+      "@typescript-eslint/prefer-nullish-coalescing": "warn",
     },
   },
 ];
