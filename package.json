@@ -31,6 +31,7 @@
     "@prisma/client": "^6.4.1",
     "@radix-ui/react-label": "^2.1.2",
     "@radix-ui/react-slot": "^1.1.2",
+    "@sentry/nextjs": "^9",
     "@t3-oss/env-nextjs": "^0.12.0",
     "@tanstack/react-query": "^5.67.2",
     "@trpc/client": "^11.0.0-rc.446",

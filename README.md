@@ -15,6 +15,7 @@ This template provides a solid foundation for building modern web applications. 
 - **shadcn/ui** - Customizable UI components
 - **Lucide React** - Icon library
 - **Luxon** - Date formatting library
+- **Sentry** - Error tracking and performance monitoring
 
 ### Backend
 
@@ -24,6 +25,7 @@ This template provides a solid foundation for building modern web applications. 
 - **Zod** - TypeScript-first schema validation
 - **Better Auth** - Authentication with built-in pages and Google OAuth
 - **Vercel AI SDK** - Make LLM AI requests easily
+- **Sentry** - Server-side error tracking and performance monitoring
 
 ### Development Tools
 
@@ -43,6 +45,14 @@ The template comes with pre-built authentication pages and features:
 - Protected routes (e.g. `/dashboard`) with middleware
 
 For more details on authentication features and customization, visit [Better Auth documentation](https://better-auth.dev).
+
+## Error Tracking and Monitoring
+
+This template includes Sentry for error tracking and performance monitoring:
+
+- Automatic error capturing for both client and server
+- Performance monitoring with transactions and spans
+- Session replay for reproducing user issues
 
 ## Using This Template
 
@@ -98,6 +108,12 @@ GOOGLE_CLIENT_SECRET=  # Your Google OAuth client secret
 
 # Email (for password reset)
 RESEND_API_KEY=       # Get from https://resend.com
+
+# Sentry
+NEXT_PUBLIC_SENTRY_DSN= # Your Sentry DSN for client-side tracking
+SENTRY_ORG=             # Your Sentry Organization
+SENTRY_PROJECT=         # Your Sentry Project
+SENTRY_AUTH_TOKEN=      # Your Sentry Auth Token
 ```
 
 3. Set up the database
@@ -139,3 +155,13 @@ Modify the Prisma schema in `/prisma/schema.prisma` to match your application's 
 
    - Development: `http://localhost:3000/api/auth/callback/google`
    - Production: `https://your-domain.com/api/auth/callback/google`
+
+## Sentry Setup
+
+1. Create an account at [Sentry](https://sentry.io)
+2. Create a new project for your application
+3. Get your DSN from the project settings
+4. Add the DSN to your environment variables:
+   - `SENTRY_DSN` - For server-side tracking
+   - `NEXT_PUBLIC_SENTRY_DSN` - For client-side tracking
+5. Test your setup by visiting the homepage and clicking the "Test Error" button
