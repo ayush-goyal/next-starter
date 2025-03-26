@@ -7,19 +7,19 @@ export const env = createEnv({
    * isn't built with invalid env vars.
    */
   server: {
-    DATABASE_URL: z.string().url(),
-    DATABASE_DIRECT_URL: z.string().url(),
-    BETTER_AUTH_SECRET: z.string(),
-    BETTER_AUTH_URL: z.string().url(),
-    GOOGLE_CLIENT_ID: z.string(),
-    GOOGLE_CLIENT_SECRET: z.string(),
-    RESEND_API_KEY: z.string(),
+    DATABASE_URL: z.string().url().optional(),
+    DATABASE_DIRECT_URL: z.string().url().optional(),
+    BETTER_AUTH_SECRET: z.string().optional(),
+    BETTER_AUTH_URL: z.string().url().optional(),
+    GOOGLE_CLIENT_ID: z.string().optional(),
+    GOOGLE_CLIENT_SECRET: z.string().optional(),
+    RESEND_API_KEY: z.string().optional(),
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
-    SENTRY_AUTH_TOKEN: z.string(),
-    SENTRY_ORG: z.string(),
-    SENTRY_PROJECT: z.string(),
+    SENTRY_AUTH_TOKEN: z.string().optional(),
+    SENTRY_ORG: z.string().optional(),
+    SENTRY_PROJECT: z.string().optional(),
   },
 
   /**
