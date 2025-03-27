@@ -114,6 +114,10 @@ NEXT_PUBLIC_SENTRY_DSN= # Your Sentry DSN for client-side tracking
 SENTRY_ORG=             # Your Sentry Organization
 SENTRY_PROJECT=         # Your Sentry Project
 SENTRY_AUTH_TOKEN=      # Your Sentry Auth Token
+
+# PostHog
+NEXT_PUBLIC_POSTHOG_KEY=   # Your PostHog API key
+NEXT_PUBLIC_POSTHOG_HOST=  # Your PostHog host URL
 ```
 
 3. Set up the database
