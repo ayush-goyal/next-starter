@@ -4,7 +4,8 @@ import "@/styles/globals.css";
 import { type Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { TRPCReactProvider } from "trpc/react";
-import { SentryProvider } from "@/components/SentryProvider";
+import { SentryProvider } from "@/components/providers/SentryProvider";
+import { PostHogProvider } from "@/components/providers/PostHogProvider";
 
 export const metadata: Metadata = {
   title: "Next App",
@@ -19,7 +20,9 @@ export default function RootLayout({
       <body>
         <ThemeProvider attribute="class">
           <TRPCReactProvider>
-            <SentryProvider>{children}</SentryProvider>
+            <SentryProvider>
+              <PostHogProvider>{children}</PostHogProvider>
+            </SentryProvider>
           </TRPCReactProvider>
           <Toaster />
         </ThemeProvider>
