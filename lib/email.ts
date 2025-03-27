@@ -1,5 +1,7 @@
 import { Resend } from "resend";
 import { env } from "@/env";
+import PasswordResetEmail from "@/emails/password-reset-email";
+import { render } from "@react-email/components";
 
 const resend = new Resend(env.RESEND_API_KEY);
 
@@ -10,16 +12,16 @@ export const sendPasswordResetEmail = async ({
   to: string;
   resetLink: string;
 }) => {
-  await resend.emails.send({
-    from: "noreply@yourdomain.com",
+  const { data, error } = await resend.emails.send({
+    from: "Company Name <support@transactional.example.com>",
     to,
     subject: "Reset your password",
-    html: `
-      <h1>Reset Your Password</h1>
-      <p>Click the link below to reset your password:</p>
-      <a href="${resetLink}">Reset Password</a>
-      <p>If you didn't request this, you can safely ignore this email.</p>
-      <p>This link will expire in 1 hour.</p>
-    `,
+    react: PasswordResetEmail({ resetLink }),
+    text: await render(PasswordResetEmail({ resetLink }), { plainText: true }),
   });
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
 };

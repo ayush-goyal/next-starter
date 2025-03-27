@@ -12,10 +12,10 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     autoSignIn: true,
-    sendResetPassword: async (data) => {
+    sendResetPassword: async ({ user, url }) => {
       await sendPasswordResetEmail({
-        to: data.user.email,
-        resetLink: data.url,
+        to: user.email,
+        resetLink: url,
       });
     },
   },

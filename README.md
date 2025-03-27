@@ -138,6 +138,7 @@ Modify the Prisma schema in `/prisma/schema.prisma` to match your application's 
 
 - `/app` - Next.js App Router pages
 - `/components` - Reusable UI components
+- `/emails` - React Email templates for transactional emails
 - `/lib` - Utility functions and shared code
 - `/prisma` - Database schema and migrations
 - `/public` - Static assets
@@ -165,3 +166,14 @@ Modify the Prisma schema in `/prisma/schema.prisma` to match your application's 
    - `SENTRY_DSN` - For server-side tracking
    - `NEXT_PUBLIC_SENTRY_DSN` - For client-side tracking
 5. Test your setup by visiting the homepage and clicking the "Test Error" button
+
+## Email Templates
+
+The template includes [React Email](https://react.email) for building and previewing emails using React components:
+
+```bash
+# Preview email templates in the browser
+yarn dev:email
+```
+
+Email templates in the `/emails` directory can be used with Resend to send transactional emails like password reset notifications.
