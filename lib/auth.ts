@@ -1,7 +1,7 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { db } from "@/server/db";
-import { sendPasswordResetEmail } from "./email";
+import { sendPasswordResetEmail, sendVerificationEmail } from "./email";
 import { env } from "@/env";
 import { stripe, stripePlans } from "./stripe";
 import { stripe as stripePlugin } from "@better-auth/stripe";
@@ -18,6 +18,18 @@ export const auth = betterAuth({
       await sendPasswordResetEmail({
         to: user.email,
         resetLink: url,
+      });
+    },
+  },
+  emailVerification: {
+    enabled: true,
+    autoSignIn: true,
+    sendOnSignUp: false,
+    expiresAt: 60 * 60, // 1 hour
+    sendVerificationEmail: async ({ user, url }) => {
+      await sendVerificationEmail({
+        to: user.email,
+        verificationLink: url,
       });
     },
   },
