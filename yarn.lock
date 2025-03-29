@@ -286,14 +286,28 @@
     "@babel/helper-string-parser" "^7.25.9"
     "@babel/helper-validator-identifier" "^7.25.9"
 
-"@better-auth/utils@0.2.3":
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/@better-auth/utils/-/utils-0.2.3.tgz#0b699d33828da8b1cbe2157b039589a00527681e"
-  integrity sha512-Ap1GaSmo6JYhJhxJOpUB0HobkKPTNzfta+bLV89HfpyCAHN7p8ntCrmNFHNAVD0F6v0mywFVEUg1FUhNCc81Rw==
+"@better-auth/stripe@^1.2.3":
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/@better-auth/stripe/-/stripe-1.2.5.tgz#eac650bd935af8101eaac6f755bf20e8b1309aa2"
+  integrity sha512-+87qnc4rtDJxzdCswJQOHTopRRcVw+93cSNz8O1TP3GcBEooEjAspHHAxSmutPm7pluLrHIX5g0uFE2MIOUbmQ==
   dependencies:
+    better-auth "^1.2.5"
+    zod "^3.24.1"
+
+"@better-auth/utils@0.2.4":
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/@better-auth/utils/-/utils-0.2.4.tgz#55c13e14fb2daa92c6d15de4a42804279636d5e0"
+  integrity sha512-ayiX87Xd5sCHEplAdeMgwkA0FgnXsEZBgDn890XHHwSWNqqRZDYOq3uj2Ei2leTv1I2KbG5HHn60Ah1i2JWZjQ==
+  dependencies:
+    typescript "^5.8.2"
     uncrypto "^0.1.3"
 
-"@better-fetch/fetch@^1.1.15", "@better-fetch/fetch@^1.1.4":
+"@better-fetch/fetch@^1.1.17":
+  version "1.1.18"
+  resolved "https://registry.yarnpkg.com/@better-fetch/fetch/-/fetch-1.1.18.tgz#4ddc65a703c65e6036947ff335e635a5a38e6225"
+  integrity sha512-rEFOE1MYIsBmoMJtQbl32PGHHXuG2hDxvEd7rUHE0vCBoFQVSDqaVs9hkZEtHCxRoY+CljXKFCOuJ8uxqw1LcA==
+
+"@better-fetch/fetch@^1.1.4":
   version "1.1.15"
   resolved "https://registry.yarnpkg.com/@better-fetch/fetch/-/fetch-1.1.15.tgz#d4170657315191cf7b15ab93e0f103776ee9b9ad"
   integrity sha512-0Bl8YYj1f8qCTNHeSn5+1DWv2hy7rLBrQ8rS8Y9XYloiwZEfc3k4yspIG0llRxafxqhGCwlGRg+F8q1HZRCMXA==
@@ -2076,7 +2090,7 @@
   dependencies:
     undici-types "~6.20.0"
 
-"@types/node@>=10.0.0":
+"@types/node@>=10.0.0", "@types/node@>=8.1.0":
   version "22.13.14"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-22.13.14.tgz#70d84ec91013dcd2ba2de35532a5a14c2b4cc912"
   integrity sha512-Zs/Ollc1SJ8nKUAgc7ivOEdIBM8JAKgrqqUYi2J997JuKO7/tpQC+WCetQ1sypiKCQWHdvdg9wBNpUPEWZae7w==
@@ -2478,29 +2492,29 @@ base64id@2.0.0, base64id@~2.0.0:
   resolved "https://registry.yarnpkg.com/base64id/-/base64id-2.0.0.tgz#2770ac6bc47d312af97a8bf9a634342e0cd25cb6"
   integrity sha512-lGe34o6EHj9y3Kts9R4ZYs/Gr+6N7MCaMlIFA3F1R2O5/m7K06AxfSeO5530PEERE6/WyEg3lsuyw4GHlPZHog==
 
-better-auth@^1.2.3:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/better-auth/-/better-auth-1.2.3.tgz#af6fe1ab76cbe4f029e6c17ae74bb50a1d8d258b"
-  integrity sha512-y97/ah2SOWaW81IRg36m7xMSMVl7ATaHie/nhQ0in/reVlEX/6juVPszNqq0gcTwQtFsB8oe15wQKgdf4yHP9Q==
+better-auth@^1.2.3, better-auth@^1.2.5:
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/better-auth/-/better-auth-1.2.5.tgz#b40bebdcd72af451f0006edc7788eba76a44e0c2"
+  integrity sha512-Tz2aKImkvaT7P9qHQ67Vhw/Slo6zpvE0jG7GoDQM+dd5tWuC3lP0OGjjWkNCZdToVlWB193i5nSHeZT90sFqEw==
   dependencies:
-    "@better-auth/utils" "0.2.3"
-    "@better-fetch/fetch" "^1.1.15"
+    "@better-auth/utils" "0.2.4"
+    "@better-fetch/fetch" "^1.1.17"
     "@noble/ciphers" "^0.6.0"
     "@noble/hashes" "^1.6.1"
     "@simplewebauthn/browser" "^13.0.0"
     "@simplewebauthn/server" "^13.0.0"
-    better-call "^1.0.3"
+    better-call "^1.0.5"
     defu "^6.1.4"
     jose "^5.9.6"
-    kysely "^0.27.4"
+    kysely "^0.27.6"
     nanostores "^0.11.3"
     valibot "1.0.0-beta.15"
     zod "^3.24.1"
 
-better-call@^1.0.3:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/better-call/-/better-call-1.0.4.tgz#e80e933d5927e5bb3d933e78258b9b05411891f7"
-  integrity sha512-NdAihYdkS0IOz1mtz8mw1gWacCxR9r921U8YqB+VB6++rt8edMG13vVL16Y4TBL4XkjMK/DUewEsOOFkw9LJYQ==
+better-call@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/better-call/-/better-call-1.0.5.tgz#ccb82556060d03ffa24d15c32a2e59b05f64b532"
+  integrity sha512-rAT73GWIJ8LbSP8Y3BdJnY1hwAiQPRRmUJ4R3YVhcVGS927l3eTXG5o5TD6Bv6je6ygjdx6iVq3/BU49eGUCHg==
   dependencies:
     "@better-fetch/fetch" "^1.1.4"
     rou3 "^0.5.1"
@@ -4325,7 +4339,7 @@ keyv@^4.5.4:
   dependencies:
     json-buffer "3.0.1"
 
-kysely@^0.27.4:
+kysely@^0.27.6:
   version "0.27.6"
   resolved "https://registry.yarnpkg.com/kysely/-/kysely-0.27.6.tgz#b2a908e160e510f9945586ca9de1616c187a2a8e"
   integrity sha512-FIyV/64EkKhJmjgC0g2hygpBv5RNWVPyNCqSAD7eTCv6eFWNIi4PN1UvdSJGicN/o35bnevgis4Y0UDC0qi8jQ==
@@ -5166,6 +5180,13 @@ pvutils@^1.1.3:
   resolved "https://registry.yarnpkg.com/pvutils/-/pvutils-1.1.3.tgz#f35fc1d27e7cd3dfbd39c0826d173e806a03f5a3"
   integrity sha512-pMpnA0qRdFp32b1sJl1wOJNxZLQ2cbQx+k6tjNtZ8CpvVhNqEPRgivZ2WOUev2YMajecdH7ctUPDvEe87nariQ==
 
+qs@^6.11.0:
+  version "6.14.0"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.14.0.tgz#c63fa40680d2c5c941412a0e899c89af60c0a930"
+  integrity sha512-YWWTjgABSKcvs/nWBi9PycY/JiPJqOD4JA6o9Sej2AtvSGarXxKC3OQSk4pAarbdQlKAh5D4FCQkJNkW+GAn3w==
+  dependencies:
+    side-channel "^1.1.0"
+
 queue-microtask@^1.2.2:
   version "1.2.3"
   resolved "https://registry.npmjs.org/queue-microtask/-/queue-microtask-1.2.3.tgz"
@@ -5813,6 +5834,14 @@ strip-json-comments@^3.1.1:
   version "3.1.1"
   resolved "https://registry.npmjs.org/strip-json-comments/-/strip-json-comments-3.1.1.tgz"
   integrity sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==
+
+stripe@^17.7.0:
+  version "17.7.0"
+  resolved "https://registry.yarnpkg.com/stripe/-/stripe-17.7.0.tgz#7816be2559e6f58bf4c005758fe20be78cdbf995"
+  integrity sha512-aT2BU9KkizY9SATf14WhhYVv2uOapBWX0OFWF4xvcj1mPaNotlSc2CsxpS4DS46ZueSppmCF5BX1sNYBtwBvfw==
+  dependencies:
+    "@types/node" ">=8.1.0"
+    qs "^6.11.0"
 
 styled-jsx@5.1.6:
   version "5.1.6"

@@ -118,6 +118,11 @@ SENTRY_AUTH_TOKEN=      # Your Sentry Auth Token
 # PostHog
 NEXT_PUBLIC_POSTHOG_KEY=   # Your PostHog API key
 NEXT_PUBLIC_POSTHOG_HOST=  # Your PostHog host URL
+
+# Stripe
+STRIPE_SECRET_KEY=                     # Server-side Stripe secret key to call Stripe APIs
+STRIPE_WEBHOOK_SECRET=                 # Stripe secret to authenticate webhooks
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=    # Publicly accessible Stripe key to collect payment information
 ```
 
 3. Set up the database
