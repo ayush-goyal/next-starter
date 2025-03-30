@@ -38,11 +38,6 @@ export const auth = betterAuth({
       stripeClient: stripe,
       stripeWebhookSecret: env.STRIPE_WEBHOOK_SECRET ?? "",
       createCustomerOnSignUp: false,
-      schema: {
-        subscription: {
-          modelName: "subscriptions",
-        },
-      },
       subscription: {
         enabled: true,
         plans: stripePlans,
