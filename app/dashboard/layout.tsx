@@ -9,9 +9,7 @@ export default function DashboardLayout({
   return (
     <SidebarProvider defaultOpen={true}>
       <AppSidebar />
-      <div className="mt-4 flex h-screen w-full flex-col px-4 py-4">
-        {children}
-      </div>
+      <div className="flex h-screen w-full flex-col px-4 py-4">{children}</div>
     </SidebarProvider>
   );
 }
