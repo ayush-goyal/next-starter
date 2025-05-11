@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  IconLayoutDashboard,
-  IconPackages,
-  IconSettings,
-} from "@tabler/icons-react";
+import { LayoutDashboard, Package, Settings } from "lucide-react";
 
 export interface BaseNavItem {
   title: string;
@@ -46,17 +42,17 @@ export const sidebarData: SidebarData = {
         {
           title: "Dashboard",
           url: "/dashboard",
-          icon: IconLayoutDashboard,
+          icon: LayoutDashboard,
         },
         {
           title: "Apps",
           url: "/dashboard/apps",
-          icon: IconPackages,
+          icon: Package,
         },
         {
           title: "Settings",
           url: "/dashboard/settings",
-          icon: IconSettings,
+          icon: Settings,
         },
       ],
     },
