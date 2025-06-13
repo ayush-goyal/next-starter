@@ -4,7 +4,7 @@ import { authClient } from "@/lib/auth-client";
 import { api } from "trpc/react";
 
 export default function Home() {
-  const { data, isLoading } = api.default.getHelloWorld.useQuery({
+  const { data, isLoading } = api.getHelloWorld.useQuery({
     name: "World",
   });
 
