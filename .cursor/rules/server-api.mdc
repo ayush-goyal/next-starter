@@ -1,0 +1,130 @@
+---
+description: NextJS backend TRPC route creation and editing, working with prisma database, and handling external APIs
+globs: server/api/**
+alwaysApply: false
+---
+## tRPC Route Structure
+- Implement one procedure per file for clarity and maintainability
+- Name files according to their operation: `{operation}.ts` (e.g., `getUser.ts`, `createPost.ts`)
+
+## Procedure Implementation
+- Always start with proper input validation using Zod
+- Use Zod transformations to normalize data before processing:
+  ```typescript
+  email: z.string().email().toLowerCase().trim()
+  ```
+- Structure procedure files consistently:
+```typescript
+// server/api/routes/getHelloWorld.ts
+import { publicProcedure } from "server/api/trpc";
+import { z } from "zod";
+
+// Input Schema
+const GetHelloWorldInputSchema = z.object({
+  name: z.string().optional().default("World"),
+});
+
+export default publicProcedure
+  .input(GetHelloWorldInputSchema)
+  // Main logic handler with input and context
+  .query(async ({ input, ctx }) => {
+    return `Hello ${input.name} from server`;
+  });
+```
+
+### Route Aggregation
+Always add procedures into a TRPC router so it can be used.
+
+```typescript
+// server/api/root.ts
+import { createTRPCRouter } from "server/api/trpc";
+import getHelloWorld from "./routes/getHelloWorld";
+
+export const appRouter = createTRPCRouter({
+  getHelloWorld: getHelloWorld,
+});
+```
+
+## Authentication & Authorization
+- Use `protectedProcedure` for all authenticated routes
+- Use `publicProcedure` only when authentication is truly not required
+- Always check resource ownership before performing operations:
+  ```typescript
+  if (resource.userId !== ctx.session.user.id) {
+    throw new TRPCError({ code: "FORBIDDEN" });
+  }
+  ```
+- Never expose sensitive data in responses
+- Validate session status and user permissions before accessing database
+- Use appropriate error codes for authentication/authorization failures:
+  - `UNAUTHORIZED` for unauthenticated requests
+  - `FORBIDDEN` for unauthorized requests
+
+## Context Usage
+- Access session data through `ctx.session`
+- Access request headers through `ctx.headers`
+```typescript
+export const createTRPCContext = async (opts: { headers: Headers }) => {
+  const authSession = await auth.api.getSession({
+    headers: opts.headers,
+  });
+  return {
+    ...opts,
+    session: authSession,
+  };
+};
+```
+
+## Database Operations
+- Use Prisma client from the db singleton:
+  ```typescript
+  import { db } from "server/db";
+  ```
+- Implement proper error handling for database operations
+- Use transactions for operations that modify multiple records:
+  ```typescript
+  return db.$transaction(async (tx) => {
+    // Multiple operations using tx instead of db
+  });
+  ```
+- Use appropriate Prisma operations (upsert, updateMany, etc.)
+- Always handle the case of resources not found
+
+## Error Handling
+- Use appropriate TRPCError codes that match the error context:
+  ```typescript
+  // Authentication errors
+  throw new TRPCError({ code: "UNAUTHORIZED" });
+  throw new TRPCError({ code: "FORBIDDEN" });
+  
+  // Input errors
+  throw new TRPCError({ code: "BAD_REQUEST", message: "Invalid input" });
+  
+  // Resource errors
+  throw new TRPCError({ code: "NOT_FOUND", message: "User not found" });
+  
+  // Server errors
+  throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
+  ```
+- Include meaningful error messages for client consumption
+- Implement proper error logging:
+  ```typescript
+  try {
+    // Operation
+  } catch (error) {
+    console.error(`Error in createUser:`, error);
+    throw new TRPCError({ 
+      code: "INTERNAL_SERVER_ERROR",
+      message: "Failed to create user",
+      cause: error
+    });
+  }
+  ```
+- Map database errors to appropriate TRPCError codes
+
+## Security Best Practices
+- Never trust client input - always validate
+- Sanitize data before using in database queries
+- Never expose sensitive error details to clients
+- Add logging for security-relevant events
+- Follow the principle of least privilege for database operations
