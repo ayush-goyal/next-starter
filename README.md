@@ -26,6 +26,7 @@ This template provides a solid foundation for building modern web applications. 
 - **Better Auth** - Authentication with built-in pages and Google OAuth
 - **Vercel AI SDK** - Make LLM AI requests easily
 - **Sentry** - Server-side error tracking and performance monitoring
+- **Cloudflare R2** - Object storage for file uploads
 
 ### Development Tools
 
@@ -123,6 +124,12 @@ NEXT_PUBLIC_POSTHOG_HOST=  # Your PostHog host URL
 STRIPE_SECRET_KEY=                     # Server-side Stripe secret key to call Stripe APIs
 STRIPE_WEBHOOK_SECRET=                 # Stripe secret to authenticate webhooks
 NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=    # Publicly accessible Stripe key to collect payment information
+
+# Cloudflare R2
+CLOUDFLARE_R2_ENDPOINT=
+CLOUDFLARE_R2_ACCESS_KEY_ID=
+CLOUDFLARE_R2_SECRET_ACCESS_KEY=
+CLOUDFLARE_R2_BUCKET_NAME=
 ```
 
 3. Set up the database

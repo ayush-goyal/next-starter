@@ -7,7 +7,16 @@ import "./env";
 import { env } from "./env";
 
 /** @type {import("next").NextConfig} */
-const config = {};
+const config = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "*.r2.cloudflarestorage.com",
+      },
+    ],
+  },
+};
 
 export default withSentryConfig(config, {
   // For all available options, see:
