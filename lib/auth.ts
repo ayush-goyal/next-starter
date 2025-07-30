@@ -7,7 +7,9 @@ import { stripe, stripePlans } from "./stripe";
 import { stripe as stripePlugin } from "@better-auth/stripe";
 
 export const auth = betterAuth({
-  basePath: "/api/auth", // Default auth route
+  baseURL: env.BETTER_AUTH_URL,
+  secret: env.BETTER_AUTH_SECRET,
+  basePath: "/api/auth",
   database: prismaAdapter(db, {
     provider: "postgresql",
   }),
