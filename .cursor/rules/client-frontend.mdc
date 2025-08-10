@@ -1,0 +1,125 @@
+---
+description: Next.js frontend conventions using tRPC + React Query, Zustand state, shadcn/ui, Tailwind, luxon, and strong typing via RouterInputs/RouterOutputs
+alwaysApply: false
+---
+
+## Frontend Architecture
+
+- Prefer Server Components by default. Add `"use client"` only where interactivity is needed.
+- Providers are composed in `app/layout.tsx` using `TRPCReactProvider`, `SentryProvider`, `PostHogProvider`, and `Toaster`.
+- Use shadcn/ui components and Tailwind for UI. Compose primitives from `components/ui/*` and utilities from `lib/utils` (`cn`).
+- Manage data with tRPC + React Query. Manage ephemeral UI state with React. Use Zustand for cross-component app state.
+
+## tRPC + React Query
+
+- Import the generated client from `trpc/react`:
+
+  ```ts
+  import { api, type RouterInputs, type RouterOutputs } from "trpc/react";
+  ```
+
+- Queries: use `api.<procedure>.useQuery(input?, options?)`. Avoid `useEffect` for fetching.
+
+  ```tsx
+  const { data, isLoading, error } = api.getHelloWorld.useQuery({
+    name: "World",
+  });
+  ```
+
+- Mutations: always invalidate relevant queries on `onSuccess`. Prefer optimistic updates for snappy UX when appropriate.
+
+  ```tsx
+  const utils = api.useUtils();
+  const { mutateAsync: updateUser } = api.user.update.useMutation({
+    onSuccess: async () => {
+      await utils.user.byId.invalidate();
+    },
+  });
+  ```
+
+- Typing with RouterInputs/RouterOutputs: always derive types from the router.
+
+  ```ts
+  type HelloInput = RouterInputs["getHelloWorld"]; // { name?: string }
+  type HelloOutput = RouterOutputs["getHelloWorld"]; // string
+  ```
+
+- Query options: prefer `enabled` for dependent queries and `keepPreviousData` for pagination.
+
+## Zustand State
+
+- Use Zustand for global app state that is not server-derived (e.g., UI preferences, client-only feature flags, wizard steps).
+- Store files: place in `hooks/` and name as `use<Domain>Store.ts`.
+- Usage: select only the needed slice to prevent unnecessary re-renders.
+- SSR: initialize stores in module scope, avoid reading `window` at import time. For persisted state, guard for browser-only APIs.
+
+## Forms
+
+- Use `react-hook-form` with Zod + shadcn `Form` primitives from `components/ui/form`.
+
+  ```tsx
+  import { z } from "zod";
+  import { useForm } from "react-hook-form";
+  import { zodResolver } from "@hookform/resolvers/zod";
+  import {
+    Form,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormControl,
+    FormMessage,
+  } from "@/components/ui/form";
+  import { Input } from "@/components/ui/input";
+
+  const schema = z.object({ email: z.string().email().toLowerCase().trim() });
+  type Values = z.infer<typeof schema>;
+
+  const form = useForm<Values>({
+    resolver: zodResolver(schema),
+    defaultValues: { email: "" },
+  });
+  ```
+
+## shadcn/ui + Tailwind
+
+- Prefer composition using `Card`, `Button`, `Input`, `Badge`, `Alert`, etc. Keep spacing/layout classes minimal and semantic.
+- Use design tokens (e.g., `bg-background`, `text-muted-foreground`). Avoid inline styles; prefer Tailwind classes.
+- Use `cn` from `lib/utils` for conditional classes.
+
+## Side Effects: Minimize `useEffect`
+
+- Prefer declarative data-fetching with tRPC `useQuery` and event-based handlers for mutations.
+- Only use `useEffect` for:
+  - Subscriptions / observers (e.g., PostHog pageviews, Sentry user context)
+  - Direct DOM APIs or layout effects
+  - One-time initialization where no other declarative option exists
+- Derive UI state from query results and props. Avoid `useEffect` to mirror props into state.
+
+## Loading, Empty, Error States
+
+- Loading: use skeletons/spinners from shadcn (e.g., `Loader2` icon with `animate-spin`) or `Skeleton` component where available.
+- Error: display a friendly message or `Alert` and optionally a retry button via React Query's `refetch`.
+- Empty: show an informative placeholder.
+
+## Toasts & Analytics
+
+- Use `sonner` via `toast` for success/error feedback in mutations.
+- Page analytics should be done in the provided providers (`PostHogProvider`) rather than per-page effects.
+
+## Dates & Formatting
+
+- Use `luxon` (`DateTime`) for all date formatting. Example:
+  ```ts
+  DateTime.fromJSDate(date).toFormat("MMMM dd, yyyy");
+  ```
+
+## Navigation
+
+- Prefer `<Link>` from `next/link` for navigation. Use `useRouter().push()` for imperative flows after mutations or sign-in/out.
+
+## Patterns to Avoid
+
+- Fetching inside `useEffect` when React Query can manage it.
+- Duplicating server data in Zustand. Keep server data in React Query; derive UI from it.
+- Un-typed `any` where `RouterInputs/RouterOutputs` types exist.
+- Inline styles for theming; use Tailwind tokens and shadcn variants.
