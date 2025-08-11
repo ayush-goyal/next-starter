@@ -27,3 +27,5 @@ if (process.env.NODE_ENV === "production" && env.NEXT_PUBLIC_SENTRY_DSN) {
     debug: false,
   });
 }
+
+export const onRouterTransitionStart = Sentry.captureRouterTransitionStart;
