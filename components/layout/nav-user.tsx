@@ -53,7 +53,7 @@ export function NavUser() {
     return (
       <SidebarMenu>
         <SidebarMenuItem>
-          <Link href="/auth/signin" className="w-full">
+          <Link href="/sign-in" className="w-full">
             <SidebarMenuButton size="lg">Sign in</SidebarMenuButton>
           </Link>
         </SidebarMenuItem>
