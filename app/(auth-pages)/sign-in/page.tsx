@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import GoogleLogo from "@/components/logos/google";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { z } from "zod";
@@ -30,7 +30,9 @@ type SignInValues = z.infer<typeof signInSchema>;
 
 export default function Login() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
+  const redirectTo = searchParams.get("redirectTo") ?? "/dashboard";
 
   const form = useForm<SignInValues>({
     resolver: zodResolver(signInSchema),
@@ -45,6 +47,7 @@ export default function Login() {
       setIsLoading(true);
       await authClient.signIn.social({
         provider: "google",
+        callbackURL: redirectTo,
       });
     } catch {
       toast.error("Something went wrong. Please try again.");
@@ -59,12 +62,13 @@ export default function Login() {
       const result = await authClient.signIn.email({
         email: values.email,
         password: values.password,
+        callbackURL: redirectTo,
       });
       if (result.error) {
         toast.error(result.error.message);
         return;
       }
-      router.push("/dashboard");
+      router.push(redirectTo);
     } catch {
       toast.error("Invalid email or password");
     } finally {
@@ -149,7 +153,7 @@ export default function Login() {
       <p className="text-muted-foreground mt-6 text-center text-sm">
         Don&apos;t have an account?{" "}
         <Link
-          href="/sign-up"
+          href={`/sign-up${redirectTo !== "/dashboard" ? `?redirectTo=${encodeURIComponent(redirectTo)}` : ""}`}
           className="text-primary underline-offset-4 hover:underline"
         >
           Sign up
